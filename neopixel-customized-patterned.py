@@ -122,7 +122,7 @@ def random_burst(delayStart, delayEnd , LoopCount):
         time.sleep(delay)
 
 def colorAllPalette(palette):
-    pNum = palette.count() # get number of colors in palette
+    pNum = len(palette) # get number of colors in palette
 
     # set color of each pixel
     for i in range(num_pixels):
@@ -214,10 +214,16 @@ while True:
     # colorAll2Color((red1, green1, blue1), (red2, green2, blue2)) 
     colorAll2Color((255, 0, 0), (0, 255, 0)) 
     time.sleep(wait_time)
+    
+    # shows colors in color palette
+    # colorAllPalette(palette): 
+    sky_palette= [ (0,255,0), (255,0,0), (255,255,0), (255,165,0), (0,0,255), (255,192,203) ]
+    colorAllPalette(sky_palette)
+    time.sleep(wait_time*5)
 
     # shows colors in color palette
     # colorAllPalette(palette): 
-    sky_palette= ( (32,99,165), (47,157,226), (44,142,209), (152,191,222), (148,164,196) )
+    sky_palette= [ (32,99,165), (32,99,165), (47,157,226), (44,142,209), (152,191,222), (148,164,196), (148,164,196) ]
     colorAllPalette(sky_palette)
     time.sleep(wait_time)
 
