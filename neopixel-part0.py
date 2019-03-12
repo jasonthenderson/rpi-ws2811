@@ -96,21 +96,54 @@ def FadeInOut(red, green, blue, delay):
         pixels.show()
         time.sleep(delay)
         
+#   
+#   steps: (1-...) number of intermediate steps to transition to new color  
+def TransitionColorStripExisting(stripFinal, steps, delay):
+
+    # gather existing colors in strip of pixel
+    stripStarting = []
+    for i in range(num_pixels):
+        stripStarting.append(pixels[i])
+    
+
+    # fixme: may need to pre-calculate the color values to improve timing preformance
+
+    for step in range(steps):
+        TransRatio =  step/steps
+
+        for i in range(num_pixels):
+            # gather old and final color
+            oldColor = stripStarting[i]
+            finalColor = stripFinal[i]
+
+            # calculate diffence in color range for color values
+            # fixme: rather than calc by R, G, B. maybe by object
+            deltaR = (finalColor[0] - oldColor[0])
+            deltaG = (finalColor[1] - oldColor[1])
+            deltaB = (finalColor[2] - oldColor[2])
+
+            # calculate new color values 
+            newR = (TransRatio * deltaR) + oldColor[0]
+            newG = (TransRatio * deltaG) + oldColor[1]
+            newB = (TransRatio * deltaB) + oldColor[2]
+
+            # assign new color to pixel
+            pixels[i] = (int(newR), int(newG), int(newB))
+
+        # show new color, and wait if needed
+        pixels.show()
+        time.sleep(delay)
+     
+    for k in range(256, -1, -1):
+        r = (k/256.0)*red
+        g = (k/256.0)*green
+        b = (k/256.0)*blue
+        pixels.fill((int(r), int(g), int(b)))
+        pixels.show()
+        time.sleep(delay)
         
 def fadeToBlack(ledNo, fadeValue):
-    #ctypes.c_uint32 oldColor = 0x00000000UL
-    #ctypes.c_uint8 r = 0
-    #ctypes.c_uint8 g = 0
-    #ctypes.c_uint8 b = 0
-
     oldColor = pixels[ledNo]
-#    r = (oldColor & 0x00ff0000) >> 16
-#    g = (oldColor & 0x0000ff00) >> 8
-#    b = (oldColor & 0x000000ff)
-    #print(oldColor)
-#    r = oldColor >> 16
-#    g = (oldColor >> 8) & 0xff
-#    b = oldColor & 0xff
     r = oldColor[0]
     g = oldColor[1]
     b = oldColor[2]
@@ -306,7 +339,7 @@ def HalloweenEyesExisting(red, green, blue, EyeWidth, EyeSpace, Fade, Steps, Fad
 
 # HeartBeatExisiting - mimics a heart beat pulse, with 2 beats at different speeds. The existing colors 
 # on the pixel strip are preserved, rather than a single color.
-#
+#j
 # HeartBeatExisiting(beat1Step, beat1FadeInDelay, beat1FadeOutDelay, beat1Delay,
 #                     beat2Step, beat2FadeInDelay, beat2FadeOutDelay, beat1Delay, cycles):
 # HeartBeatExisiting(3, .005, .003, 0.001, 6, .002, .003, 0.05, 10)
