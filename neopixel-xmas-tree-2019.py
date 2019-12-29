@@ -1892,8 +1892,8 @@ while True:
                  cgreen,cgreen,cgreen,cgreen,cgreen,cgreen,cgreen,cgreen,cgreen,cgreen,
                  cblue,cblue,cblue,cblue,cblue,cblue,cblue,cblue,cblue,cblue,
                  cyellow,cyellow,cyellow,cyellow,cyellow,cyellow,cyellow,cyellow,cyellow,cyellow)
-    #colorAllColorGroup(colorobj)
-    #time.sleep(wait_time+10)
+    colorAllColorGroup(colorobj)
+    time.sleep(wait_time+10)
 
     # shows 2 color every other pixel (red, green)
     # colorAllColorGroup(colorObject)
