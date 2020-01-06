@@ -9,8 +9,9 @@ class NeopixelEffects( ):
     def __init__(self, pixels):
         # Each rocket has an (x,y) position.
         self.pixels = pixels
+        self.num_pixels = 144
         
-    def wheel(pos):
+    def wheel(self, pos):
         # Input a value 0 to 255 to get a color value.
         # The colours are a transition r - g - b - back to r.
         if pos < 0 or pos > 255:
@@ -32,10 +33,11 @@ class NeopixelEffects( ):
         return (r, g, b) if ORDER == neopixel.RGB or ORDER == neopixel.GRB else (r, g, b, 0)
 
 
-    def rainbow_cycle(wait):
+    
+    def rainbow_cycle(self, wait):
         for j in range(255):
-            for i in range(num_pixels):
-                pixel_index = (i * 256 // num_pixels) + j
-                self.pixels[i] = wheel(pixel_index & 255)
+            for i in range(self.num_pixels):
+                pixel_index = (i * 256 // self.num_pixels) + j
+                self.pixels[i] = self.wheel(pixel_index & 255)
             self.pixels.show()
             time.sleep(wait)
